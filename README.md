@@ -16,7 +16,7 @@
 
 啟動資料庫伺服器.需要啟動伺服器並由[http://localhost:6001/](http://localhost:6001/設定的資料表名稱)進入存取.<br />
 
-###　備註
+### 備註
 
 /src/db/database.js 　已變更資料庫為 pet_db<br />
 
