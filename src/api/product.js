@@ -1,6 +1,11 @@
 import express from 'express'
 
-import User from '../domain/user.js'
+//-----資料表-----
+//將此檔案複製成一份存於同資料夾下
+//存檔檔名用自己的資料表名稱
+//引入的檔名直接替換
+//範例:import User from '../domain/檔案名稱.js'
+import User from '../domain/product.js'
 
 // mysql2 async-await用的
 import dbMysql2 from '../db/database.js'

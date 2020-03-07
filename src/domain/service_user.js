@@ -7,7 +7,10 @@ class User {
     this.email = email
     this.login = 0
   }
-
+  //-----資料表-----
+  //將此檔案複製成一份存於同資料夾下
+  //存檔檔名用自己的資料表名稱
+  //以下資料表名稱請替換成自己的資料表(共7處)
   addUserSQL() {
     let sql = `INSERT INTO service_user(name, username, password, email, login, createdDate) \
                    VALUES('${this.name}', '${this.username}', '${this.password}', '${this.email}', 0, NOW())`

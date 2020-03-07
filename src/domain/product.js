@@ -7,15 +7,18 @@ class User {
     this.email = email
     this.login = 0
   }
-
+  //-----資料表-----
+  //將此檔案複製成一份存於同資料夾下
+  //存檔檔名用自己的資料表名稱
+  //以下資料表名稱請替換成自己的資料表(共7處)
   addUserSQL() {
-    let sql = `INSERT INTO USERS(name, username, password, email, login, createdDate) \
+    let sql = `INSERT INTO product(name, username, password, email, login, createdDate) \
                    VALUES('${this.name}', '${this.username}', '${this.password}', '${this.email}', 0, NOW())`
     return sql
   }
 
   updateUserByIdSQL(id) {
-    let sql = `UPDATE USERS \
+    let sql = `UPDATE product \
                SET name = '${this.name}', username = '${this.username}', password = '${this.password}', email = '${this.email}', login = ${this.login} \
                WHERE id =  ${id}`
     return sql
@@ -23,7 +26,7 @@ class User {
 
   // static是與實例化無關
   static getUserByIdSQL(id) {
-    let sql = `SELECT * FROM USERS WHERE id = ${id}`
+    let sql = `SELECT * FROM product WHERE id = ${id}`
     return sql
   }
 
@@ -37,19 +40,19 @@ class User {
 
     let sql = ''
 
-    if (where.length) sql = `SELECT * FROM USERS WHERE ` + where.join(' AND ')
-    else sql = `SELECT * FROM USERS`
+    if (where.length) sql = `SELECT * FROM product WHERE ` + where.join(' AND ')
+    else sql = `SELECT * FROM product`
 
     return sql
   }
 
   static deleteUserByIdSQL(id) {
-    let sql = `DELETE FROM USERS WHERE ID = ${id}`
+    let sql = `DELETE FROM product WHERE ID = ${id}`
     return sql
   }
 
   static getAllUserSQL() {
-    let sql = `SELECT * FROM USERS`
+    let sql = `SELECT * FROM product`
     return sql
   }
 }

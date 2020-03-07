@@ -1,6 +1,8 @@
 import mysql from 'mysql2'
 
 // 資料庫連結資訊
+//-----資料庫-----
+//資料庫連線設定
 const connection = {
   host: 'localhost',
   user: 'root',
