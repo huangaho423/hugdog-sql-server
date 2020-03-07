@@ -7,7 +7,6 @@ import cors from 'cors'
 //加入設定的資料表並引入(請接續加在後面)
 //import 資料表 from './api/資料表.js'
 import product from './api/product.js'
-import service_user from './api/service_user.js'
 
 const app = express()
 
@@ -21,7 +20,6 @@ app.use(bodyparser.urlencoded({ extended: false }))
 //這邊設定中介軟體middleware(請接續加在後面)
 //app.use('/資料表', 資料表)
 app.use('/product', product)
-app.use('/service_user', service_user)
 
 // 未找到的錯誤 - 404
 app.use((req, res, next) => {
