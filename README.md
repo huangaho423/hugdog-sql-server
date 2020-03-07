@@ -14,7 +14,7 @@
 
 ### `npm start`
 
-啟動資料庫伺服器.需要啟動伺服器並由[http://localhost:6001/](http://localhost:6001/設定的資料表名稱)進入存取.<br />
+啟動資料庫伺服器.啟動伺服器後由[http://localhost:6001/設定的資料表名稱](http://localhost:6001/)進入存取.<br />
 
 ### 備註
 
