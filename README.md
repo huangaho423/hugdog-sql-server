@@ -4,7 +4,7 @@
 
 使用前請開啟 XAMPP mysql 與 apache 服務<br />
 
-### `git clone https://github.com/huangaho423/hugdog-react.git`
+### `git clone https://github.com/huangaho423/hugdog-sql-server.git`
 
 下載 HugDog SQL Server 專案.<br />
 
