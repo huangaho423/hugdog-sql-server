@@ -1,5 +1,5 @@
 import http from 'http'
-import app from './app.js'
+import app from './App.js'
 
 //設定預設埠號為6001，要不然就用系統預設
 const port = process.env.port || 6001

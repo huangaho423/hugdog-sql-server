@@ -5,7 +5,7 @@ import express from 'express'
 //存檔檔名用自己的資料表名稱
 //引入的檔名直接替換
 //範例:import User from '../domain/檔案名稱.js'
-import Product from '../domain/product.js'
+import serviceUser from '../domain/service_user.js'
 
 // mysql2 async-await用的
 import dbMysql2 from '../db/database.js'
@@ -84,13 +84,14 @@ async function executeSQL(
 router.get('/', (req, res, next) => {
   //console.log(req.query)
 
-  if (!Object.keys(req.query).length) executeSQL(Product.getAllDataSQL(), res)
-  else executeSQL(Product.getDataByQuerySQL(req.query), res)
+  if (!Object.keys(req.query).length)
+    executeSQL(serviceUser.getAllDataSQL(), res)
+  else executeSQL(serviceUser.getDataByQuerySQL(req.query), res)
 })
 
 // get 處理獲取單一筆的會員，使用id
 router.get('/:userId', (req, res, next) => {
-  executeSQL(Product.getDataByIdSQL(req.params.userId), res, 'get', false)
+  executeSQL(serviceUser.getDataByIdSQL(req.params.userId), res, 'get', false)
 })
 
 // post 新增一筆會員資料
@@ -100,7 +101,7 @@ router.post('/', (req, res, next) => {
   // console.log(req.body)
 
   //從request json 資料建立新的物件
-  let data = new Product(
+  let data = new serviceUser(
     req.body.name,
     req.body.username,
     req.body.password,
@@ -112,12 +113,17 @@ router.post('/', (req, res, next) => {
 
 //delete 刪除一筆資料
 router.delete('/:userId', (req, res, next) => {
-  executeSQL(Product.deleteDataByIdSQL(req.params.userId), res, 'delete', false)
+  executeSQL(
+    serviceUser.deleteDataByIdSQL(req.params.userId),
+    res,
+    'delete',
+    false
+  )
 })
 
 // put 更新一筆資料
 router.put('/:userId', (req, res) => {
-  let user = new Product(
+  let user = new serviceUser(
     req.body.name,
     req.body.username,
     req.body.password,
