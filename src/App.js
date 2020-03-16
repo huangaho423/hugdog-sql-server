@@ -11,8 +11,20 @@ import member from './api/member.js'
 import serviceUser from './api/service_user.js'
 
 const app = express()
+//白名單允許前端連線
+const whiteList = ['http://localhost:3000', undefined]
+const corsOptions = {
+  credentials: true,
+  origin: function(origin, callback) {
+    if (whiteList.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(null, false)
+    }
+  },
+}
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: false }))
 

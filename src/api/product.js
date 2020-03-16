@@ -31,9 +31,9 @@ async function executeSQL(
     switch (method) {
       case 'post': {
         // 仿照json-server的回傳
-        const insertId = { id: rows.insertId }
+        const insertpId = { pId: rows.insertpId }
         // 合併id值
-        const result = { ...instance, ...insertId }
+        const result = { ...instance, ...insertpId }
         //回傳
         res.status(200).json(result)
         break
@@ -57,13 +57,13 @@ async function executeSQL(
         {
           if (multirows) {
             res.status(200).json({
-              users: rows,
+              product: rows, //注意多行會儲存在物件內，得注意key，因此前端得用成員運算子才能取到rows
             })
           } else {
             // 仿照json-server的回傳，有找到會回傳單一值，沒找到會回到空的物件字串
             let result = {}
             if (rows.length) result = rows[0]
-            res.status(200).json(result)
+            res.status(200).json(result) //單行直接回傳物件，在此前端則不用
           }
         }
         break
@@ -89,8 +89,8 @@ router.get('/', (req, res, next) => {
 })
 
 // get 處理獲取單一筆的會員，使用id
-router.get('/:userId', (req, res, next) => {
-  executeSQL(Product.getDataByIdSQL(req.params.userId), res, 'get', false)
+router.get('/:pId', (req, res, next) => {
+  executeSQL(Product.getDataByIdSQL(req.params.pId), res, 'get', false)
 })
 
 // post 新增一筆會員資料
@@ -111,7 +111,7 @@ router.post('/', (req, res, next) => {
 })
 
 //delete 刪除一筆資料
-router.delete('/:userId', (req, res, next) => {
+router.delete('/:pId', (req, res, next) => {
   executeSQL(Product.deleteDataByIdSQL(req.params.userId), res, 'delete', false)
 })
 
