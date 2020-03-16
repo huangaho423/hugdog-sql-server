@@ -11,6 +11,7 @@ import member from './api/member.js'
 import serviceUser from './api/service_user.js'
 
 const app = express()
+
 const whiteList = ['http://localhost:3000', undefined]
 const corsOptions = {
   credentials: true,
@@ -22,6 +23,7 @@ const corsOptions = {
     }
   },
 }
+
 app.use(cors(corsOptions))
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: false }))
