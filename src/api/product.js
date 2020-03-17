@@ -88,10 +88,14 @@ router.get('/', (req, res, next) => {
   else executeSQL(Product.getDataByQuerySQL(req.query), res)
 })
 
-// get 處理獲取單一筆的會員，使用id
-router.get('/:pId', (req, res, next) => {
+// get 處理獲取單一筆的商品，使用id
+router.get('/:pId?', (req, res, next) => {
   executeSQL(Product.getDataByIdSQL(req.params.pId), res, 'get', false)
 })
+
+// router.get('/:vId', (req, res, next) => {
+//   executeSQL(Product.getDataByIdSQL(req.params.vId), res, 'get', false)
+// })
 
 // post 新增一筆會員資料
 router.post('/', (req, res, next) => {

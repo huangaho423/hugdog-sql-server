@@ -39,11 +39,16 @@ class Product {
   }
 
   // static是與實例化無關
+  //依照商品id
   static getDataByIdSQL(pId) {
     let sql = `SELECT * FROM product WHERE pId = ${pId}`
     return sql
   }
-
+  //依照商品種類id
+  static getDataByCategoryIdSQL(pCategoryId) {
+    let sql = `SELECT * FROM product WHERE pCategoryId = ${pCategoryId}`
+    return sql
+  }
   // static是與實例化無關
   static getDataByQuerySQL(query) {
     const where = []
@@ -66,7 +71,7 @@ class Product {
   }
 
   static getAllDataSQL() {
-    let sql = `SELECT * FROM product`
+    let sql = `SELECT * FROM product Limit 0,9`
     return sql
   }
 }

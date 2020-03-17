@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyparser from 'body-parser'
 import cors from 'cors'
-
+import db from './db/database.js'
 // 需匯入api
 //-----資料表-----
 //加入設定的資料表並引入(請接續加在後面)
@@ -33,7 +33,7 @@ app.use(bodyparser.urlencoded({ extended: false }))
 //-----資料表-----
 //這邊設定中介軟體middleware(請接續加在後面)
 //app.use('/資料表', 資料表)
-app.use('/product', product)
+app.use('/products', product)
 app.use('/member', member)
 app.use('/service_user', serviceUser)
 
