@@ -89,6 +89,18 @@ router.get('/', (req, res, next) => {
   else executeSQL(serviceUser.getDataByQuerySQL(req.query), res)
 })
 
+// get 抓取保姆與評論接合的資料
+router.get('/comment/:userId', (req, res, next) => {
+  let sql = `SELECT * FROM service_comment WHERE sId=${req.params.userId}`
+  executeSQL(sql, res)
+})
+
+// get 抓取保姆與評論接合的資料
+router.get('/type', (req, res, next) => {
+  let sql = `SELECT * FROM service_type`
+  executeSQL(sql, res)
+})
+
 // get 處理獲取單一筆的會員，使用id
 router.get('/:userId', (req, res, next) => {
   executeSQL(serviceUser.getDataByIdSQL(req.params.userId), res, 'get', false)
