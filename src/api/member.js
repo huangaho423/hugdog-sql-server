@@ -89,8 +89,8 @@ router.get('/', (req, res, next) => {
 })
 
 // get 處理獲取單一筆的會員，使用id
-router.get('/:userId', (req, res, next) => {
-  executeSQL(Product.getDataByIdSQL(req.params.userId), res, 'get', false)
+router.get('/:mId', (req, res, next) => {
+  executeSQL(Product.getDataByIdSQL(req.params.mId), res, 'get', false)
 })
 
 // post 新增一筆會員資料
@@ -111,12 +111,12 @@ router.post('/', (req, res, next) => {
 })
 
 //delete 刪除一筆資料
-router.delete('/:userId', (req, res, next) => {
-  executeSQL(Product.deleteDataByIdSQL(req.params.userId), res, 'delete', false)
+router.delete('/:mId', (req, res, next) => {
+  executeSQL(Product.deleteDataByIdSQL(req.params.mId), res, 'delete', false)
 })
 
 // put 更新一筆資料
-router.put('/:userId', (req, res) => {
+router.put('/:mId', (req, res) => {
   let user = new Product(
     req.body.name,
     req.body.username,
@@ -125,9 +125,9 @@ router.put('/:userId', (req, res) => {
   )
 
   // id值為數字
-  user.id = +req.params.userId
+  user.id = +req.params.mId
 
-  executeSQL(user.updateDataByIdSQL(req.params.userId), res, 'put', false, user)
+  executeSQL(user.updateDataByIdSQL(req.params.mId), res, 'put', false, user)
 })
 
 export default router
