@@ -57,7 +57,7 @@ async function executeSQL(
         {
           if (multirows) {
             res.status(200).json({
-              users: rows,
+              rows: rows,
             })
           } else {
             // 仿照json-server的回傳，有找到會回傳單一值，沒找到會回到空的物件字串
