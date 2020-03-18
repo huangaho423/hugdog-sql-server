@@ -6,7 +6,7 @@ import mysql from 'mysql2'
 const connection = {
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: '',
   database: 'pet_db',
   waitForConnections: true,
   connectionLimit: 10,
