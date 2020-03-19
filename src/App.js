@@ -8,7 +8,7 @@ import cors from 'cors'
 //import 資料表 from './api/資料表.js'
 import product from './api/product.js'
 import member from './api/member.js'
-import dog from './api/dog.js'
+
 import serviceUser from './api/service_user.js'
 
 const app = express()
@@ -36,7 +36,7 @@ app.use(bodyparser.urlencoded({ extended: false }))
 //app.use('/資料表', 資料表)
 app.use('/products', product)
 app.use('/member', member)
-app.use('/dog', dog)
+
 app.use('/service_user', serviceUser)
 
 // 未找到的錯誤 - 404
