@@ -135,5 +135,15 @@ router.get('/size', (req, res, next) => {
   let sql = `SELECT * FROM service_size`
   executeSQL(sql, res)
 })
+// service_photo 保姆環境相片
+router.get('/photo/:userId', (req, res, next) => {
+  let sql = `SELECT * FROM service_photo WHERE sId=${req.params.userId}`
+  executeSQL(sql, res)
+})
+// service_extra 額外服務項目
+router.get('/extra', (req, res, next) => {
+  let sql = `SELECT * FROM service_extra`
+  executeSQL(sql, res)
+})
 
 export default router
