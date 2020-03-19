@@ -5,7 +5,7 @@ import express from 'express'
 //存檔檔名用自己的資料表名稱
 //引入的檔名直接替換
 //範例:import User from '../domain/檔案名稱.js'
-import Member from '../domain/member.js'
+import Dog from '../domain/dog.js'
 
 // mysql2 async-await用的
 import dbMysql2 from '../db/database.js'
@@ -57,7 +57,7 @@ async function executeSQL(
         {
           if (multirows) {
             res.status(200).json({
-              member: rows,
+              dog: rows,
             })
           } else {
             // 仿照json-server的回傳，有找到會回傳單一值，沒找到會回到空的物件字串
@@ -84,13 +84,13 @@ async function executeSQL(
 router.get('/', (req, res, next) => {
   //console.log(req.query)
 
-  if (!Object.keys(req.query).length) executeSQL(Member.getAllDataSQL(), res)
-  else executeSQL(Member.getDataByQuerySQL(req.query), res)
+  if (!Object.keys(req.query).length) executeSQL(Dog.getAllDataSQL(), res)
+  else executeSQL(Dog.getDataByQuerySQL(req.query), res)
 })
 
 // get 處理獲取單一筆的會員，使用id
-router.get('/:mId', (req, res, next) => {
-  executeSQL(Member.getDataByIdSQL(req.params.mId), res, 'get', false)
+router.get('/:dId', (req, res, next) => {
+  executeSQL(Dog.getDataByIdSQL(req.params.dId), res, 'get', false)
 })
 
 // post 新增一筆會員資料
@@ -100,7 +100,7 @@ router.post('/', (req, res, next) => {
   // console.log(req.body)
 
   //從request json 資料建立新的物件
-  let data = new Member(
+  let data = new Dog(
     req.body.name,
     req.body.username,
     req.body.password,
@@ -111,13 +111,13 @@ router.post('/', (req, res, next) => {
 })
 
 //delete 刪除一筆資料
-router.delete('/:mId', (req, res, next) => {
-  executeSQL(Member.deleteDataByIdSQL(req.params.mId), res, 'delete', false)
+router.delete('/:dId', (req, res, next) => {
+  executeSQL(Dog.deleteDataByIdSQL(req.params.dId), res, 'delete', false)
 })
 
 // put 更新一筆資料
-router.put('/:mId', (req, res) => {
-  let user = new Member(
+router.put('/:dId', (req, res) => {
+  let user = new Dog(
     req.body.name,
     req.body.username,
     req.body.password,
@@ -125,9 +125,9 @@ router.put('/:mId', (req, res) => {
   )
 
   // id值為數字
-  user.id = +req.params.mId
+  user.id = +req.params.dId
 
-  executeSQL(user.updateDataByIdSQL(req.params.mId), res, 'put', false, user)
+  executeSQL(user.updateDataByIdSQL(req.params.dId), res, 'put', false, user)
 })
 
 export default router
