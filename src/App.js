@@ -9,7 +9,7 @@ import cors from 'cors'
 import product from './api/product.js'
 import member from './api/member.js'
 
-import serviceUser from './api/service_user.js'
+import serviceUser from './api/service.js'
 
 const app = express()
 
