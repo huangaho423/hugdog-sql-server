@@ -8,10 +8,10 @@ import db from './db/database.js'
 //import 資料表 from './api/資料表.js'
 import product from './api/product.js'
 import member from './api/member.js'
-import serviceUser from './api/service_user.js'
+import service from './api/service.js'
 
 const app = express()
-//白名單允許前端連線
+
 const whiteList = ['http://localhost:3000', undefined]
 const corsOptions = {
   credentials: true,
@@ -35,7 +35,7 @@ app.use(bodyparser.urlencoded({ extended: false }))
 //app.use('/資料表', 資料表)
 app.use('/products', product)
 app.use('/member', member)
-app.use('/service_user', serviceUser)
+app.use('/service', service)
 
 // 未找到的錯誤 - 404
 app.use((req, res, next) => {

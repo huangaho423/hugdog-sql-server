@@ -5,7 +5,7 @@ import express from 'express'
 //存檔檔名用自己的資料表名稱
 //引入的檔名直接替換
 //範例:import User from '../domain/檔案名稱.js'
-import serviceUser from '../domain/service_user.js'
+import service from '../domain/service.js'
 
 // mysql2 async-await用的
 import dbMysql2 from '../db/database.js'
@@ -27,7 +27,6 @@ async function executeSQL(
 ) {
   try {
     const [rows, fields] = await dbMysql2.promisePool.query(sql)
-
     switch (method) {
       case 'post': {
         // 仿照json-server的回傳
@@ -57,7 +56,7 @@ async function executeSQL(
         {
           if (multirows) {
             res.status(200).json({
-              users: rows,
+              rows: rows,
             })
           } else {
             // 仿照json-server的回傳，有找到會回傳單一值，沒找到會回到空的物件字串
@@ -71,59 +70,45 @@ async function executeSQL(
   } catch (error) {
     // 錯誤處理
     console.log(error)
-
     // 顯示錯誤於json字串
     res.status(200).json({
       message: error,
     })
   }
 }
-
+//-----service_user 保姆資料-----
 // get 處理獲取全部的資料列表
 // AND查詢加入`?name=eddy&email=XXX&username=XXXX
-router.get('/', (req, res, next) => {
+router.get('/user/', (req, res, next) => {
   //console.log(req.query)
-
-  if (!Object.keys(req.query).length)
-    executeSQL(serviceUser.getAllDataSQL(), res)
-  else executeSQL(serviceUser.getDataByQuerySQL(req.query), res)
+  if (!Object.keys(req.query).length) executeSQL(service.getAllDataSQL(), res)
+  else executeSQL(service.getDataByQuerySQL(req.query), res)
 })
-
 // get 處理獲取單一筆的會員，使用id
-router.get('/:userId', (req, res, next) => {
-  executeSQL(serviceUser.getDataByIdSQL(req.params.userId), res, 'get', false)
+router.get('/user/:userId', (req, res, next) => {
+  executeSQL(service.getDataByIdSQL(req.params.userId), res, 'get', false)
 })
-
 // post 新增一筆會員資料
-router.post('/', (req, res, next) => {
+router.post('/user/', (req, res, next) => {
   // 測試response，會自動解析為物件
   // console.log(typeof req.body)
   // console.log(req.body)
-
   //從request json 資料建立新的物件
-  let data = new serviceUser(
+  let data = new service(
     req.body.name,
     req.body.username,
     req.body.password,
     req.body.email
   )
-
   executeSQL(data.addDataSQL(), res, 'post', false, user)
 })
-
 //delete 刪除一筆資料
-router.delete('/:userId', (req, res, next) => {
-  executeSQL(
-    serviceUser.deleteDataByIdSQL(req.params.userId),
-    res,
-    'delete',
-    false
-  )
+router.delete('/user/:userId', (req, res, next) => {
+  executeSQL(service.deleteDataByIdSQL(req.params.userId), res, 'delete', false)
 })
-
 // put 更新一筆資料
-router.put('/:userId', (req, res) => {
-  let user = new serviceUser(
+router.put('/user/:userId', (req, res) => {
+  let user = new service(
     req.body.name,
     req.body.username,
     req.body.password,
@@ -134,6 +119,31 @@ router.put('/:userId', (req, res) => {
   user.id = +req.params.userId
 
   executeSQL(user.updateDataByIdSQL(req.params.userId), res, 'put', false, user)
+})
+// service_comment 評論
+router.get('/comment/:userId', (req, res, next) => {
+  let sql = `SELECT * FROM service_comment WHERE sId=${req.params.userId}`
+  executeSQL(sql, res)
+})
+// service_type 服務類型
+router.get('/type', (req, res, next) => {
+  let sql = `SELECT * FROM service_type`
+  executeSQL(sql, res)
+})
+// service_size 狗狗體型
+router.get('/size', (req, res, next) => {
+  let sql = `SELECT * FROM service_size`
+  executeSQL(sql, res)
+})
+// service_photo 保姆環境相片
+router.get('/photo/:userId', (req, res, next) => {
+  let sql = `SELECT * FROM service_photo WHERE sId=${req.params.userId}`
+  executeSQL(sql, res)
+})
+// service_extra 額外服務項目
+router.get('/extra', (req, res, next) => {
+  let sql = `SELECT * FROM service_extra`
+  executeSQL(sql, res)
 })
 
 export default router
