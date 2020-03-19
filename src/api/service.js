@@ -123,6 +123,12 @@ router.put('/user/:userId', (req, res) => {
 // service_comment 評論
 router.get('/comment/:userId', (req, res, next) => {
   let sql = `SELECT * FROM service_comment WHERE sId=${req.params.userId}`
+  if (req.query.order) {
+    sql += ` order by ${req.query.order} desc`
+  }
+  if (req.query.limit) {
+    sql += ` limit ${req.query.limit}`
+  }
   executeSQL(sql, res)
 })
 // service_type 服務類型
